@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import application.service.CourseService;
 
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,10 +58,10 @@ public class CourseController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Course> deleteCourse(@PathVariable Long id){
+    @Transactional
+    public void deleteCourse(@PathVariable Long id){
 
-        Course deletedCourse = courseService.deleteCourse(id);
-        return new ResponseEntity<>(deletedCourse, HttpStatus.OK);
+        courseService.deleteCourse(id);
     }
 
     @ExceptionHandler

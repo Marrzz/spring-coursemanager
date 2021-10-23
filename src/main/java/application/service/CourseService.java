@@ -30,17 +30,15 @@ public class CourseService {
         return (Course) courseRepository.findCourseById(id)
                 .orElseThrow(() -> new RuntimeException(String.format("Course With Id Of %s  Not Found", id)));
 
-        //return new Course();
     }
 
     public Course updateCourse(Course course){
         return courseRepository.save(course);
     }
 
-    public Course deleteCourse(Long id){
-        Course course = courseRepository.getById(id);
+    public void deleteCourse(Long id){
+
         courseRepository.deleteCourseById(id);
 
-        return course;
     }
 }
